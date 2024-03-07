@@ -9,33 +9,33 @@ Class:  COP3502 Sec 0003
 // Function prototypes
 void swap(int *xp, int *yp);
 void printArray(int arr[], int swaps[][2], int size);
-void bubbleSort(int arr[], int swaps[][2], int n);
-void selectionSort(int arr[], int swaps[][2], int n);
+void bubbleSort(int a[], int n);
+void selectionSort(int a[], int n);
 void updateSwaps(int swaps[][2], int n, int a, int b);
 
 int main() {
     // Declare variables
     int arr1[] = {97, 16, 45, 63, 13, 22, 7, 58, 72};
     int arr2[] = {90, 80, 70, 60, 50, 40, 30, 20, 10};
-    int swaps1[][2] = {{97, 0}, {16, 0}, {45, 0}, {63, 0}, {13, 0}, {22, 0}, {7, 0}, {58, 0}, {72, 0}};
-    int swaps2[][2] = {{90, 0}, {80, 0}, {70, 0}, {60, 0}, {50, 0}, {40, 0}, {30, 0}, {20, 0}, {10, 0}};
     int n = 9;
 
     //  use bubble sort on arr1
     printf("\nArray 1 Bubble Sort:\n--------------------\n");
-    bubbleSort(arr1, swaps1, n);
+    bubbleSort(arr1, n);
 
     //  use selection sort on arr1
+    int arr1cpy[] = {97, 16, 45, 63, 13, 22, 7, 58, 72};
     printf("\nArray 1 Selection Sort:\n-----------------------\n");
-    selectionSort(arr1, swaps1, n);
+    selectionSort(arr1cpy, n);
 
     //  use bubble sort on arr2
     printf("\nArray 2 Bubble Sort:\n--------------------\n");
-    bubbleSort(arr2, swaps2, n);
+    bubbleSort(arr2, n);
 
     //  use selection sort on arr2
+    int arr2cpy[] = {90, 80, 70, 60, 50, 40, 30, 20, 10};
     printf("\nArray 2 Selection Sort:\n-----------------------\n");
-    selectionSort(arr2, swaps2, n);
+    selectionSort(arr2cpy, n);
 
     return 0;
 }
@@ -47,8 +47,17 @@ void swap(int *xp, int *yp)
     *yp = temp;
 }
 
-void bubbleSort(int arr[], int swaps[][2], int n) 
+void bubbleSort(int arr[], int n) 
 {
+    //  create a 2D array to store number of swaps
+    int swaps[n][2];
+
+    for (int i = 0; i < n; i++)
+    {
+        swaps[i][0] = arr[i];
+        swaps[i][1] = 0;
+    }
+
     int i, j, total = 0;
     for (i = 0; i < n - 1; i++) 
     {
@@ -66,8 +75,16 @@ void bubbleSort(int arr[], int swaps[][2], int n)
     printf("Total # of swaps: %d\n", total);
 }
 
-void selectionSort(int arr[], int swaps[][2], int n)
+void selectionSort(int arr[], int n)
 {
+    //  create a 2D array to store number of swaps
+    int swaps[n][2];
+    for (int i = 0; i < n; i++)
+    {
+        swaps[i][0] = arr[i];
+        swaps[i][1] = 0;
+    }
+
 	int i, j, min_idx, temp, total = 0;
 	// One by one move boundary of unsorted subarray
 	for (i = 0; i < n-1; i++)
